@@ -1,0 +1,67 @@
+
+/*   Custom CSS - Checkout.html   */
+.checkout-form {
+    position: absolute;
+    height: 500px;
+    width: 400px;
+    background: #FFFFFF;
+    left: calc((100% - 400px) / 2);
+    margin-top: 80px;
+    border-radius: 4px;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+}
+
+.checkout-form .title__text {
+    text-transform: capitalize;
+}
+
+.checkout-form form {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.checkout-form input {
+    display: inline-block;
+    background: #FFFFFF;
+    width: 80%;
+    margin: 20px auto;
+    border: 1px solid #CCDADF;
+    border-radius: 4px;
+    padding: 12px 0;
+    padding-left: 10px;
+    outline: 0;
+    font-size: 15px;
+    color: var(--text-color-light);
+}
+
+.checkout-input-group {
+    position: relative;
+}
+
+.checkout-input-group label {
+    position: absolute;
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+.checkout-form .half-width {
+    width: 40%;
+}
+
+.checkout-form .terms {
+    font-size: 11px;
+}
+
+.checkout-form a {
+    color: var(--primary-color-dark);
+}
+
+.checkout-form .button {
+    margin-top: 22px;
+    width: 100%;
+    border-radius: 0;
+    padding: 16px;
+    font-size: 15px;
+}

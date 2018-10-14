@@ -1,0 +1,86 @@
+/*   Custom CSS - Signup.html */
+.signup {
+    position: absolute;
+    height: 450px;
+    width: 600px;
+    left: calc((100% - 600px) / 2);
+    margin-top: 3em;
+}
+
+.signup__logo__container {
+    width: 100%;
+}
+
+.signup__logo {
+    text-align: center;
+    width: 130px;
+    height: 130px;
+    margin: 0 auto;
+}
+
+.signup__logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.signup form {
+    border-radius: 4px;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+    width: 350px;
+    height: 195px;
+    position: relative;
+    text-align: center;
+    margin: 40px auto;
+    background: #FFFFFF;
+}
+
+.signup input {
+    display: inline-block;
+    background: #FFFFFF;
+    width: 80%;
+    margin: 12px auto;
+    border: 0;
+    padding: 12px 0;
+    outline: 0;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+.signup .input-group:nth-child(1) {
+    border-bottom: 1px solid lightgrey;
+}
+
+.signup .input-group:nth-child(2) {
+    border-bottom: 1px solid lightgrey;
+}
+
+.signup .input-button {
+    margin-top: 30px;
+}
+
+.signup .button {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.input-account {
+    margin-top: 30px;
+    font-size: 15px;
+}
+
+.input-account p {
+    color: #FFFFFF;
+}
+
+.input-account a {
+    color: var(--secondary-color);
+}
+
+.input-forgot {
+    color: #AAAAAA;
+    display: block;
+    margin-top: 10px;
+}
