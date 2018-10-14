@@ -34,4 +34,9 @@ router.get('/order', (req, res) => {
   res.sendFile(_path2.default.join(__dirname, '../views/order.html'));
 });
 
+// Admin Routes
+router.get('/menu', (req, res) => {
+  res.sendFile(_path2.default.join(__dirname, '../views/admin-menu.html'));
+});
+
 exports.default = router;

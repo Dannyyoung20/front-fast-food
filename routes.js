@@ -22,4 +22,9 @@ router.get('/order', (req, res) => {
   res.sendFile(path.join(__dirname, '../views/order.html'));
 });
 
+// Admin Routes
+router.get('/menu', (req, res) => {
+  res.sendFile(path.join(__dirname, '../views/admin-menu.html'));
+});
+
 export default router;

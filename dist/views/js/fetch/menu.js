@@ -1,9 +1,11 @@
+'use strict';
+
 const uri = window.APP_URI;
 const menuForm = document.getElementById('menuForm');
 const token = localStorage.getItem('token');
 
 // Form Submit
-menuForm.addEventListener('submit', async (e) => {
+menuForm.addEventListener('submit', async e => {
   e.preventDefault();
 
   const name = document.getElementById('meal-name').value;
@@ -16,10 +18,10 @@ menuForm.addEventListener('submit', async (e) => {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      token,
+      token
 
     },
-    body: JSON.stringify({ name, price, imageUrl }),
+    body: JSON.stringify({ name, price, imageUrl })
   };
 
   try {
@@ -42,7 +44,7 @@ window.onload = () => {
     const payload = token.split('.')[1];
     const data = JSON.parse(window.atob(payload));
     const expires = data.exp;
-    const currentDate = Math.floor((Date.now() / 1000)); // Convert date to seconds
+    const currentDate = Math.floor(Date.now() / 1000); // Convert date to seconds
 
     // Check if the token has expired or not
     if (expires < currentDate) {
