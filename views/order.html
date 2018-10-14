@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/toast.css" />
     <link rel="icon" href="img/food-truck.png" />
 </head>
+
 <body class="bg-grey">
     <nav class="nav nav--primary nav--custom">
         <div class="nav__inner">
@@ -30,9 +32,9 @@
     <div class="cart order-cart">
         <div class="cart__title title__text--dark">Menu List</div>
         <div class="overflow">
-            <div class="cart__item">
+            <div class="cart__item" data-id="1">
                 <div class="cart__image">
-                    <img src="img/meals/hamburger.png"/>
+                    <img src="img/meals/hamburger.png" />
                 </div>
                 <div class="cart__description">
                     <span>Hamburger</span>
@@ -43,11 +45,11 @@
                     </select>
                 </div>
                 <div class="cart__quantity">
-                    <button type="button" class="cart__button-plus">
+                    <button id="increment" type="button" class="cart__button-plus">
                         <img src="img/plus.svg" />
                     </button>
-                    <input type="text" name="qty" value="1"/>
-                    <button type="button" class="cart__button-minus">
+                    <input type="text" name="qty" value="1" />
+                    <button id="decrement" id="increment"" type="button" class="cart__button-minus">
                         <img src="img/minus.svg" />
                     </button>
                 </div>
@@ -58,7 +60,7 @@
             </div>
             <div class="cart__item">
                 <div class="cart__image">
-                    <img src="img/meals/soda.png"/>
+                    <img src="img/meals/soda.png" />
                 </div>
                 <div class="cart__description">
                     <span>Soda</span>
@@ -69,11 +71,11 @@
                     </select>
                 </div>
                 <div class="cart__quantity">
-                    <button type="button" class="cart__button-plus">
+                    <button id="increment" type="button" class="cart__button-plus">
                         <img src="img/plus.svg" />
                     </button>
-                    <input type="text" name="qty" value="2"/>
-                    <button type="button" class="cart__button-minus">
+                    <input type="text" name="qty" value="2" />
+                    <button id="decrement" type="button" class="cart__button-minus">
                         <img src="img/minus.svg" />
                     </button>
                 </div>
@@ -84,7 +86,7 @@
             </div>
             <div class="cart__item">
                 <div class="cart__image">
-                    <img src="img/meals/donuts.png"/>
+                    <img src="img/meals/donuts.png" />
                 </div>
                 <div class="cart__description">
                     <span>Donuts</span>
@@ -95,11 +97,11 @@
                     </select>
                 </div>
                 <div class="cart__quantity">
-                    <button type="button" class="cart__button-plus">
+                    <button id="increment" type="button" class="cart__button-plus">
                         <img src="img/plus.svg" />
                     </button>
-                    <input type="text" name="qty" value="2"/>
-                    <button type="button" class="cart__button-minus">
+                    <input type="text" name="qty" value="2" />
+                    <button id="decrement" type="button" class="cart__button-minus">
                         <img src="img/minus.svg" />
                     </button>
                 </div>
@@ -110,7 +112,7 @@
             </div>
             <div class="cart__item">
                 <div class="cart__image">
-                    <img src="img/meals/spring-rolls.png"/>
+                    <img src="img/meals/spring-rolls.png" />
                 </div>
                 <div class="cart__description">
                     <span>Spring Rolls</span>
@@ -121,11 +123,11 @@
                     </select>
                 </div>
                 <div class="cart__quantity">
-                    <button type="button" class="cart__button-plus">
+                    <button id="increment" type="button" class="cart__button-plus">
                         <img src="img/plus.svg" />
                     </button>
-                    <input type="text" name="qty" value="1"/>
-                    <button type="button" class="cart__button-minus">
+                    <input type="text" name="qty" value="1" />
+                    <button id="decrement" type="button" class="cart__button-minus">
                         <img src="img/minus.svg" />
                     </button>
                 </div>
@@ -134,9 +136,9 @@
                     <a href="#" class="button button--secondary button--radius">Add</a>
                 </div>
             </div>
-            <div class="cart__item">
+            <div class="cart__item" data-id="2">
                 <div class="cart__image">
-                    <img src="img/meals/pie.png"/>
+                    <img src="img/meals/pie.png" />
                 </div>
                 <div class="cart__description">
                     <span>Pie</span>
@@ -147,11 +149,11 @@
                     </select>
                 </div>
                 <div class="cart__quantity">
-                    <button type="button" class="cart__button-plus">
+                    <button id="increment" type="button" class="cart__button-plus">
                         <img src="img/plus.svg" />
                     </button>
-                    <input type="text" name="qty" value="1"/>
-                    <button type="button" class="cart__button-minus">
+                    <input type="text" name="qty" value="1" />
+                    <button id="decrement" type="button" class="cart__button-minus">
                         <img src="img/minus.svg" />
                     </button>
                 </div>
@@ -162,7 +164,7 @@
             </div>
             <div class="cart__item">
                 <div class="cart__image">
-                    <img src="img/meals/pizza-slice.png"/>
+                    <img src="img/meals/pizza-slice.png" />
                 </div>
                 <div class="cart__description">
                     <span>Pizza</span>
@@ -173,11 +175,11 @@
                     </select>
                 </div>
                 <div class="cart__quantity">
-                    <button type="button" class="cart__button-plus">
+                    <button id="increment" type="button" class="cart__button-plus">
                         <img src="img/plus.svg" />
                     </button>
-                    <input type="text" name="qty" value="1"/>
-                    <button type="button" class="cart__button-minus">
+                    <input type="text" name="qty" value="1" />
+                    <button id="decrement" type="button" class="cart__button-minus">
                         <img src="img/minus.svg" />
                     </button>
                 </div>
@@ -198,8 +200,10 @@
         <a href="history.html">History</a>
         <a class="nav__total" href="#">Total: &#8358; 7,000</a>
     </div>
-    <script src="js/sidenav.js" type="text/javascript"></script>
-    <script src="js/toast.js" type="text/javascript"></script>
-    <script src="js/init.js" type="text/javascript"></script>
+    <script async src="js/sidenav.js" type="text/javascript"></script>
+    <script async src="js/toast.js" type="text/javascript"></script>
+    <script async src="js/init.js" type="text/javascript"></script>
+    <script async src="js/fetch/order.js" type="text/javascript"></script>
 </body>
+
 </html>

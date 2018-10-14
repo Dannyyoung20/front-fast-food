@@ -25,7 +25,7 @@ loginForm.addEventListener('submit', async (event) => {
     if (result.token) {
       const { token } = result;
       localStorage.setItem('token', token);
-      localStorage.setItem('flash', JSON.stringify({ type: 'success', message: result.message }));
+      flash({ type: 'success', message: result.message });
       window.location.href = '/order';
     }
   } catch (e) {
@@ -49,5 +49,8 @@ window.onload = () => {
       // Remove token if expired
       localStorage.removeItem('token');
     }
+  } else {
+    flash({ type: 'default', message: 'Login Required' });
+    window.location.href = '/login';
   }
 };
