@@ -33,7 +33,7 @@ const orderTemplate = data => {
   nodeCartDesc.appendChild(spanName);
 
   nodeCartPrice.className = 'cart__item-total-price';
-  nodeCartPrice.innerHTML = `'&#8358; ${data.price}`;
+  nodeCartPrice.innerHTML = `&#8358; ${data.price}`;
 
   nodeCartAdd.className = 'cart__add-to-cart';
   buttonAdd.className = 'button button--secondary button--radius';
