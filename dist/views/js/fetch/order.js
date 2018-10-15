@@ -2,7 +2,7 @@
 
 const uri = window.APP_URI;
 const overflowDOM = document.querySelector('.overflow');
-const cart = new Cart();
+let cart;
 // Our order html Template
 const orderTemplate = data => {
   const nodeDivCartItem = document.createElement('div');
@@ -147,6 +147,15 @@ const handleButtonClick = () => {
   });
 };
 
+const pageLoading = isLoading => {
+  const loadingDOM = document.querySelector('.loading');
+  if (isLoading) {
+    loadingDOM.classList.add('loading--show');
+  } else {
+    loadingDOM.classList.remove('loading--show');
+  }
+};
+
 window.onload = async () => {
   // Check if token exist
   if (localStorage.getItem('token')) {
@@ -169,11 +178,12 @@ window.onload = async () => {
         token
       }
     };
-
+    pageLoading(true);
     const res = await fetch(`${uri}/menu`, options);
     const result = await res.json();
     if (res.status !== 200) toast('danger', result.message);
     await constructDOM(result.menu);
+    pageLoading(false);
   } else {
     flash({ type: 'default', message: 'Login Required' });
     window.location.href = '/login';
@@ -181,4 +191,5 @@ window.onload = async () => {
   increment();
   decrement();
   handleButtonClick();
+  cart = new Cart();
 };

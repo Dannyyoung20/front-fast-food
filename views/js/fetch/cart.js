@@ -2,7 +2,7 @@ const uri = window.APP_URI;
 const cartDOM = document.querySelector('#cart');
 const navTotalDOM = document.querySelector('.nav__total');
 // Initalise our cart
-const cart = new Cart();
+let cart;
 // Our Cart html Template
 const orderTemplate = (data) => {
   const nodeDivCartItem = document.createElement('div');
@@ -175,4 +175,5 @@ window.onload = async () => {
   increment();
   decrement();
   handleRemoveOrder();
+  cart = new Cart();
 };
