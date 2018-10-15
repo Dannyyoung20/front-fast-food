@@ -2,7 +2,7 @@
 
 const uri = window.APP_URI;
 const overflowDOM = document.querySelector('.overflow');
-
+const cart = new Cart();
 // Our order html Template
 const orderTemplate = data => {
   const nodeDivCartItem = document.createElement('div');
@@ -111,10 +111,39 @@ const decrement = () => {
   });
 };
 
+// Construct the DOM
 const constructDOM = meals => {
   meals.forEach(async meal => {
     const ordersDOM = orderTemplate(meal);
     await overflowDOM.appendChild(ordersDOM);
+  });
+};
+
+const handleButtonClick = () => {
+  const addButtons = document.querySelectorAll('.cart__add-to-cart');
+  addButtons.forEach(button => {
+    button.addEventListener('click', async e => {
+      e.preventDefault();
+      const parentID = e.currentTarget.parentNode.getAttribute('data-id');
+      const parentDOM = document.querySelectorAll(`[data-id='${parentID}']`)[0];
+      const inputDOM = parentDOM.getElementsByTagName('input')[0];
+      const quantity = parseInt(inputDOM.value, 10);
+      const name = parentDOM.getAttribute('data-name');
+      const imageUrl = parentDOM.querySelector('.cart__image > img').src;
+      const price = parseInt(parentDOM.querySelector('.cart__item-total-price').innerHTML.split(' ')[1], 10);
+
+      const data = {
+        name,
+        quantity,
+        imageUrl,
+        price
+      };
+      const isDone = await cart.storeOrder(data);
+      inputDOM.value = 0;
+      if (isDone) {
+        toast('success', 'Item successfully added');
+      }
+    });
   });
 };
 
@@ -151,4 +180,5 @@ window.onload = async () => {
   }
   increment();
   decrement();
+  handleButtonClick();
 };

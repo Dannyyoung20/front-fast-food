@@ -49,8 +49,5 @@ window.onload = () => {
       // Remove token if expired
       localStorage.removeItem('token');
     }
-  } else {
-    flash({ type: 'default', message: 'Login Required' });
-    window.location.href = '/login';
   }
 };

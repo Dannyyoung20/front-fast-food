@@ -1,21 +1,25 @@
+'use strict';
+
 const uri = window.APP_URI;
-const overflowDOM = document.querySelector('.overflow');
+const cartDOM = document.querySelector('#cart');
+const navTotalDOM = document.querySelector('.nav__total');
+// Initalise our cart
 const cart = new Cart();
-// Our order html Template
-const orderTemplate = (data) => {
+// Our Cart html Template
+const orderTemplate = data => {
   const nodeDivCartItem = document.createElement('div');
   const nodeCartDesc = document.createElement('div');
   const nodeCartQty = document.createElement('div');
   const nodeCartPrice = document.createElement('div');
   const nodeCartImage = document.createElement('div');
-  const nodeCartAdd = document.createElement('div');
+  const nodeCartRemove = document.createElement('div');
   const buttonIncrement = document.createElement('button');
   const buttonDecrement = document.createElement('button');
   const inputQty = document.createElement('input');
   const imgPlus = document.createElement('img');
   const imgMinus = document.createElement('img');
   const imgCart = document.createElement('img');
-  const buttonAdd = document.createElement('a');
+  const removeBtn = document.createElement('span');
   const spanName = document.createElement('span');
 
   nodeDivCartItem.dataset.id = data.id;
@@ -23,7 +27,7 @@ const orderTemplate = (data) => {
   nodeDivCartItem.className = 'cart__item';
 
   nodeCartImage.className = 'cart__image';
-  imgCart.src = data.img;
+  imgCart.src = data.imageUrl;
   nodeCartImage.appendChild(imgCart);
 
   nodeCartDesc.className = 'cart__description';
@@ -33,11 +37,9 @@ const orderTemplate = (data) => {
   nodeCartPrice.className = 'cart__item-total-price';
   nodeCartPrice.innerHTML = `&#8358; ${data.price}`;
 
-  nodeCartAdd.className = 'cart__add-to-cart';
-  buttonAdd.className = 'button button--secondary button--radius';
-  buttonAdd.href = '#';
-  buttonAdd.innerHTML = 'Add';
-  nodeCartAdd.appendChild(buttonAdd);
+  removeBtn.className = 'ion-ios-close remove-item';
+  nodeCartRemove.className = 'button-group';
+  nodeCartRemove.appendChild(removeBtn);
 
   // Cart Quantity Node
   imgPlus.src = 'img/plus.svg';
@@ -51,39 +53,47 @@ const orderTemplate = (data) => {
   buttonIncrement.appendChild(imgPlus);
   buttonDecrement.appendChild(imgMinus);
   inputQty.name = 'qty';
-  inputQty.value = '0';
+  inputQty.value = `${data.quantity}`;
   inputQty.type = 'text';
   nodeCartQty.className = 'cart__quantity';
   nodeCartQty.appendChild(buttonIncrement);
   nodeCartQty.appendChild(inputQty);
   nodeCartQty.appendChild(buttonDecrement);
 
+  // Appending all nodes to root node
+  nodeDivCartItem.appendChild(nodeCartRemove);
   nodeDivCartItem.appendChild(nodeCartImage);
   nodeDivCartItem.appendChild(nodeCartDesc);
   nodeDivCartItem.appendChild(nodeCartQty);
   nodeDivCartItem.appendChild(nodeCartPrice);
-  nodeDivCartItem.appendChild(nodeCartAdd);
 
   return nodeDivCartItem;
+};
+
+const updateNavTotal = price => {
+  navTotalDOM.innerHTML = `Total: &#8358; ${price}`;
 };
 
 // Increment functionality
 const increment = () => {
   const incrementBtn = document.querySelectorAll('#increment');
-  incrementBtn.forEach((inc) => {
-    inc.addEventListener('click', (e) => {
+  incrementBtn.forEach(inc => {
+    inc.addEventListener('click', async e => {
       e.preventDefault();
       const parentID = e.currentTarget.parentNode.parentNode.getAttribute('data-id');
       const parentDOM = document.querySelectorAll(`[data-id='${parentID}']`)[0];
       const inputDOM = parentDOM.getElementsByTagName('input')[0];
-      let value = parseInt(inputDOM.value, 10);
-
-      if (value <= 100) {
-        value += 1;
+      let quantity = parseInt(inputDOM.value, 10);
+      if (quantity <= 100) {
+        quantity += 1;
       } else {
-        value = 0;
+        quantity = 0;
       }
-      inputDOM.value = value;
+      inputDOM.value = quantity;
+      const data = { quantity };
+      await cart.updateSpecificOrder(parentID, data);
+      const total = await cart.getTotalPrice();
+      await updateNavTotal(total);
     });
   });
 };
@@ -91,55 +101,46 @@ const increment = () => {
 // Decrement functionality
 const decrement = () => {
   const decrementBtn = document.querySelectorAll('#decrement');
-  decrementBtn.forEach((dec) => {
-    dec.addEventListener('click', (e) => {
+  decrementBtn.forEach(dec => {
+    dec.addEventListener('click', async e => {
       e.preventDefault();
       const parentID = e.currentTarget.parentNode.parentNode.getAttribute('data-id');
       const parentDOM = document.querySelectorAll(`[data-id='${parentID}']`)[0];
       const inputDOM = parentDOM.getElementsByTagName('input')[0];
-      let value = parseInt(inputDOM.value, 10);
+      let quantity = parseInt(inputDOM.value, 10);
 
-      if (value >= 1) {
-        value -= 1;
+      if (quantity >= 1) {
+        quantity -= 1;
       } else {
-        value = 0;
+        quantity = 0;
       }
-      inputDOM.value = value;
+      inputDOM.value = quantity;
+      const data = { quantity };
+      await cart.updateSpecificOrder(parentID, data);
+      const total = await cart.getTotalPrice();
+      await updateNavTotal(total);
     });
   });
 };
 
-// Construct the DOM
-const constructDOM = (meals) => {
-  meals.forEach(async (meal) => {
+const constructDOM = meals => {
+  meals.forEach(async meal => {
     const ordersDOM = orderTemplate(meal);
-    await overflowDOM.appendChild(ordersDOM);
+    await cartDOM.appendChild(ordersDOM);
   });
 };
 
-const handleButtonClick = () => {
-  const addButtons = document.querySelectorAll('.cart__add-to-cart');
-  addButtons.forEach((button) => {
-    button.addEventListener('click', async (e) => {
+const handleRemoveOrder = () => {
+  const removeBtns = document.querySelectorAll('.remove-item');
+  removeBtns.forEach(button => {
+    button.addEventListener('click', async e => {
       e.preventDefault();
-      const parentID = e.currentTarget.parentNode.getAttribute('data-id');
-      const parentDOM = document.querySelectorAll(`[data-id='${parentID}']`)[0];
-      const inputDOM = parentDOM.getElementsByTagName('input')[0];
-      const quantity = parseInt(inputDOM.value, 10);
-      const name = parentDOM.getAttribute('data-name');
-      const imageUrl = parentDOM.querySelector('.cart__image > img').src;
-      const price = parseInt(parentDOM.querySelector('.cart__item-total-price').innerHTML.split(' ')[1], 10);
+      const parentID = e.currentTarget.parentNode.parentNode.getAttribute('data-id');
+      const isDone = await cart.deleteSpecificOrder(parentID);
 
-      const data = {
-        name,
-        quantity,
-        imageUrl,
-        price,
-      };
-      const isDone = await cart.storeOrder(data);
-      inputDOM.value = 0;
       if (isDone) {
-        toast('success', 'Item successfully added');
+        flash({ type: 'success', message: 'Item Successfully Removed' });
+        window.location.href = '/cart';
       }
     });
   });
@@ -152,31 +153,28 @@ window.onload = async () => {
     const payload = token.split('.')[1];
     const data = JSON.parse(window.atob(payload));
     const expires = data.exp;
-    const currentDate = Math.floor((Date.now() / 1000)); // Convert date to seconds
+    const currentDate = Math.floor(Date.now() / 1000); // Convert date to seconds
 
     // Check if the token has expired or not
     if (expires < currentDate) {
       window.location.href = '/login';
     }
-    const options = {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        token,
-      },
-    };
 
-    const res = await fetch(`${uri}/menu`, options);
-    const result = await res.json();
-    if (res.status !== 200) toast('danger', result.message);
-    await constructDOM(result.menu);
+    const orders = cart.showAllOrders();
+    if (Array.isArray(orders) && orders.length !== 0) {
+      await constructDOM(orders);
+      const total = await cart.getTotalPrice();
+      await updateNavTotal(total);
+    } else {
+      const total = await cart.getTotalPrice();
+      await updateNavTotal(total);
+      cartDOM.insertAdjacentHTML('beforeend', '<p class="text--center pt-3 pb-2">No Cart item</p>');
+    }
   } else {
     flash({ type: 'default', message: 'Login Required' });
     window.location.href = '/login';
   }
   increment();
   decrement();
-  handleButtonClick();
+  handleRemoveOrder();
 };

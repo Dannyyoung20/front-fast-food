@@ -1,3 +1,5 @@
+'use strict';
+
 const cartStore = JSON.parse(localStorage.getItem('cart'));
 class Cart {
   constructor() {
@@ -46,7 +48,7 @@ class Cart {
       name: _body.name,
       price: _body.price,
       quantity: _body.quantity,
-      imageUrl: _body.imageUrl,
+      imageUrl: _body.imageUrl
     };
     // Store the order details in our cart
     this.cart.push(order);
@@ -74,7 +76,7 @@ class Cart {
       name: orderData[0].name,
       price: orderData[0].price,
       quantity: _body.quantity,
-      imageUrl: orderData[0].imageUrl,
+      imageUrl: orderData[0].imageUrl
     };
     // cart the order details in our cart
     this.cart.push(order);
@@ -101,7 +103,7 @@ class Cart {
   getTotalPrice() {
     let totalPrice = 0;
     if (Array.isArray(this.cart) && this.cart.length !== 0) {
-      this.cart.forEach((order) => {
+      this.cart.forEach(order => {
         const orderPrice = order.quantity * order.price;
         totalPrice += orderPrice;
       });

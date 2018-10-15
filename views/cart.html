@@ -7,6 +7,7 @@
     <title>Fast Food Fast - Cart</title>
     <link rel="stylesheet" href="css/ionicons.min.css" type="text/css">
     <link rel="stylesheet" href="css/core.css" type="text/css" />
+    <link rel="stylesheet" href="css/toast.css" type="text/css" />
     <link rel="icon" href="img/food-truck.png" />
 </head>
 <body class="bg-grey">
@@ -19,7 +20,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="order.html">Orders</a></li>
                 <li><a href="history.html">History</a></li>
-                <li><a class="nav__total" href="#">Total: &#8358; 7,000</a></li>
+                <li><a class="nav__total" href="#"></a></li>
             </ul>
             <ul class="nav__links--sm">
                 <li><a href="#" class="open" id="open"><i class="icon ion-ios-cart vi"></i></a></li>
@@ -28,84 +29,7 @@
     </nav>
     <div class="cart">
         <div class="cart__title">Cart</div>
-        <div class="cart__item">
-            <div class="button-group">
-                <span class="ion-ios-close remove-item"></span>
-            </div>
-            <div class="cart__image">
-                <img src="img/meals/hamburger.png"/>
-            </div>
-            <div class="cart__description">
-                <span>Hamburger</span>
-                <select>
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large">Large</option>
-                </select>
-            </div>
-            <div class="cart__quantity">
-                <button type="button" class="cart__button-plus">
-                    <img src="img/plus.svg" />
-                </button>
-                <input type="text" name="qty" value="1"/>
-                <button type="button" class="cart__button-minus">
-                    <img src="img/minus.svg" />
-                </button>
-            </div>
-            <div class="cart__item-total-price">&#8358; 3,000</div>
-        </div>
-        <div class="cart__item">
-            <div class="button-group">
-                <span class="ion-ios-close remove-item"></span>
-            </div>
-            <div class="cart__image">
-                <img src="img/meals/soda.png"/>
-            </div>
-            <div class="cart__description">
-                <span>Soda</span>
-                <select>
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option selected value="large">Large</option>
-                </select>
-            </div>
-            <div class="cart__quantity">
-                <button type="button" class="cart__button-plus">
-                    <img src="img/plus.svg" />
-                </button>
-                <input type="text" name="qty" value="2"/>
-                <button type="button" class="cart__button-minus">
-                    <img src="img/minus.svg" />
-                </button>
-            </div>
-            <div class="cart__item-total-price">&#8358; 1,000</div>
-        </div>
-        <div class="cart__item">
-            <div class="button-group">
-                <span class="ion-ios-close remove-item"></span>
-            </div>
-            <div class="cart__image">
-                <img src="img/meals/donuts.png"/>
-            </div>
-            <div class="cart__description">
-                <span>Donuts</span>
-                <select>
-                    <option value="small">Small</option>
-                    <option selected value="medium">Medium</option>
-                    <option value="large">Large</option>
-                </select>
-            </div>
-            <div class="cart__quantity">
-                <button type="button" class="cart__button-plus">
-                    <img src="img/plus.svg" />
-                </button>
-                <input type="text" name="qty" value="2"/>
-                <button type="button" class="cart__button-minus">
-                    <img src="img/minus.svg" />
-                </button>
-            </div>
-            <div class="cart__item-total-price">&#8358; 3,000</div>
-        </div>
+        <div id="cart"></div>
         <a href="checkout.html" class="cart__button button button--primary">Proceed To Checkout</a>
     </div>
     <div id="js-side-nav" class="sidenav">
@@ -117,6 +41,10 @@
         <a href="history.html">History</a>
         <a class="nav__total" href="#">Total: &#8358; 7,000</a>
     </div>
-    <script src="js/sidenav.js" type="text/javascript"></script>
+    <script async src="js/sidenav.js" type="text/javascript"></script>
+    <script async src="js/toast.js" type="text/javascript"></script>
+    <script async src="js/init.js" type="text/javascript"></script>
+    <script async src="js/cart.js" type="text/javascript"></script>
+    <script async src="js/fetch/cart.js" type="text/javascript"></script>
 </body>
 </html>
