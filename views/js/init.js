@@ -1,4 +1,4 @@
-window.APP_URI = 'http://127.0.0.1:4000/api/v1';
+window.APP_URI = 'https://fast-foo.herokuapp.com/api/v1';
 
 // Check if there is any message that needs to be flashed
 if (localStorage.getItem('flash')) {
