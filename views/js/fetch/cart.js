@@ -70,6 +70,8 @@ const orderTemplate = (data) => {
 
 const updateNavTotal = (price) => {
   navTotalDOM.innerHTML = `Total: &#8358; ${price}`;
+  const btn = document.querySelector('.cart__button');
+  btn.innerHTML = `Pay &#8358;${price}`;
 };
 
 // Increment functionality
@@ -144,6 +146,14 @@ const handleRemoveOrder = () => {
   });
 };
 
+const handlePayment = () => {
+  const btn = document.querySelector('.cart__button');
+  btn.addEventListener('click', async (e) => {
+    const stripeBtn = document.querySelector('#stripe-btn');
+    stripeBtn.dataset.amount = cart.getTotalPrice();
+  });
+};
+
 window.onload = async () => {
   // Check if token exist
   if (localStorage.getItem('token')) {
@@ -157,6 +167,11 @@ window.onload = async () => {
     if (expires < currentDate) {
       window.location.href = '/login';
     }
+    pageLoading(true);
+    cart = new Cart();
+    const btn = document.querySelector('.cart__button');
+    const total = cart.getTotalPrice();
+    btn.innerHTML = `Pay &#8358;${total}`;
 
     const orders = cart.showAllOrders();
     if (Array.isArray(orders) && orders.length !== 0) {
@@ -168,6 +183,7 @@ window.onload = async () => {
       await updateNavTotal(total);
       cartDOM.insertAdjacentHTML('beforeend', '<p class="text--center pt-3 pb-2">No Cart item</p>');
     }
+    pageLoading(false);
   } else {
     flash({ type: 'default', message: 'Login Required' });
     window.location.href = '/login';
@@ -175,5 +191,5 @@ window.onload = async () => {
   increment();
   decrement();
   handleRemoveOrder();
-  cart = new Cart();
+  handlePayment();
 };

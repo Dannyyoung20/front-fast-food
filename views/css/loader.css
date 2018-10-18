@@ -2,19 +2,18 @@
   min-width: 750px;
   height: 360px;
   position: relative;
-  background: rgba(10, 10, 10, .75);
   text-align: center;
   display: none;
 }
 
 .loading img {
-  margin-top: 7rem;
-  height: 90px;
+  margin-top: 8rem;
+  height: 60px;
 }
 
 .loading--show {
   display: block;
-  animation: fadeIn .5s ease-in-out;
+  /* animation: fadeIn .5s ease-in-out; */
 }
 
 @keyframes fadeIn {

@@ -130,16 +130,28 @@ const handleButtonClick = () => {
       const imageUrl = parentDOM.querySelector('.cart__image > img').src;
       const price = parseInt(parentDOM.querySelector('.cart__item-total-price').innerHTML.split(' ')[1], 10);
 
+      if (quantity === 0) {
+        return toast('danger', 'Quantity cannot be zero');
+      }
+
       const data = {
         name,
         quantity,
         imageUrl,
         price,
       };
-      const isDone = await cart.storeOrder(data);
-      inputDOM.value = 0;
-      if (isDone) {
+      const existOrderID = await cart.getSpecificOrder(name);
+
+      if (existOrderID) {
+        cart.updateQuantityOrder(existOrderID, data);
+        inputDOM.value = 0;
         toast('success', 'Item successfully added');
+      } else {
+        const isDone = await cart.storeOrder(data);
+        inputDOM.value = 0;
+        if (isDone) {
+          toast('success', 'Item successfully added');
+        }
       }
     });
   });
@@ -155,6 +167,7 @@ const pageLoading = (isLoading) => {
 };
 
 window.onload = async () => {
+  cart = new Cart();
   // Check if token exist
   if (localStorage.getItem('token')) {
     const token = localStorage.getItem('token');
@@ -162,7 +175,6 @@ window.onload = async () => {
     const data = JSON.parse(window.atob(payload));
     const expires = data.exp;
     const currentDate = Math.floor((Date.now() / 1000)); // Convert date to seconds
-
     // Check if the token has expired or not
     if (expires < currentDate) {
       window.location.href = '/login';
@@ -189,5 +201,4 @@ window.onload = async () => {
   increment();
   decrement();
   handleButtonClick();
-  cart = new Cart();
 };

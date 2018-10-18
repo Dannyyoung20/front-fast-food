@@ -83,6 +83,27 @@ class Cart {
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
+  updateQuantityOrder(_orderID, _body) {
+    // Getting the order item index
+    const orderIndex = this.cart.findIndex(order => order.id === _orderID);
+
+    // Remove the order from our cart
+    const orderData = this.cart.splice(orderIndex, 1);
+    const newQty = _body.quantity + orderData[0].quantity;
+
+    // Construct a db Object for the order
+    const order = {
+      id: orderData[0].id,
+      name: orderData[0].name,
+      price: orderData[0].price,
+      quantity: newQty,
+      imageUrl: orderData[0].imageUrl
+    };
+    // cart the order details in our cart
+    this.cart.push(order);
+    localStorage.setItem('cart', JSON.stringify(this.cart));
+  }
+
   // @params _orderID req.params
   // @desc Displays a specific order
   deleteSpecificOrder(_orderID) {
@@ -98,6 +119,15 @@ class Cart {
   deleteAllOrders() {
     localStorage.removeItem('cart');
     this.cart = [];
+  }
+
+  getSpecificOrder(name) {
+    const orderIndex = this.cart.findIndex(order => order.name === name);
+
+    if (orderIndex === -1) {
+      return false;
+    }
+    return this.cart[orderIndex].id;
   }
 
   getTotalPrice() {
