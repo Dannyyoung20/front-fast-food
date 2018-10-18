@@ -2,17 +2,19 @@
 /*   Custom CSS - Checkout.html   */
 .checkout-form {
     position: absolute;
-    height: 500px;
     width: 400px;
     background: #FFFFFF;
     left: calc((100% - 400px) / 2);
-    margin-top: 80px;
+    top: 100px;
     border-radius: 4px;
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
 }
 
 .checkout-form .title__text {
     text-transform: capitalize;
+    font-family: 'Roboto-Mono';
+    font-size: 24px;
+    font-weight: 400;
 }
 
 .checkout-form form {
@@ -20,6 +22,7 @@
     position: relative;
     text-align: center;
     margin: 20px auto;
+    margin-bottom: 0;
 }
 
 .checkout-form input {

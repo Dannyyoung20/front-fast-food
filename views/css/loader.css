@@ -1,0 +1,27 @@
+.loading {
+  min-width: 750px;
+  height: 360px;
+  position: relative;
+  text-align: center;
+  display: none;
+}
+
+.loading img {
+  margin-top: 8rem;
+  height: 60px;
+}
+
+.loading--show {
+  display: block;
+  /* animation: fadeIn .5s ease-in-out; */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

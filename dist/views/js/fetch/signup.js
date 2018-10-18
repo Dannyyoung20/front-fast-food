@@ -1,13 +1,14 @@
 'use strict';
 
 const uri = window.APP_URI;
-const loginForm = document.querySelector('.login');
+const signupForm = document.querySelector('.signup');
 
-loginForm.addEventListener('submit', async event => {
+signupForm.addEventListener('submit', async event => {
   event.preventDefault();
 
   const email = document.querySelector('.email').value;
   const password = document.querySelector('.password').value;
+  const address = document.querySelector('.address').value;
 
   const options = {
     method: 'POST',
@@ -16,18 +17,18 @@ loginForm.addEventListener('submit', async event => {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ email, password, address })
   };
 
   // Making the fetch Request
   try {
-    const res = await fetch(`${uri}/auth/login`, options);
+    const res = await fetch(`${uri}/auth/signup`, options);
     const result = await res.json();
     if (res.status !== 200) toast('danger', result.message);
     if (result.token) {
       const { token } = result;
       localStorage.setItem('token', token);
-      flash({ type: 'success', message: result.message });
+      flash({ type: 'success', message: 'Sign up successful' });
       window.location.href = '/order';
     }
   } catch (e) {

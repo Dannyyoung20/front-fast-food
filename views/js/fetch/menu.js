@@ -1,11 +1,14 @@
 const uri = window.APP_URI;
-const loginForm = document.querySelector('.login');
+const menuForm = document.getElementById('menuForm');
+const token = localStorage.getItem('token');
 
-loginForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
+// Form Submit
+menuForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-  const email = document.querySelector('.email').value;
-  const password = document.querySelector('.password').value;
+  const name = document.getElementById('meal-name').value;
+  const price = document.getElementById('price').value;
+  const imageUrl = document.getElementById('image-url').value;
 
   const options = {
     method: 'POST',
@@ -13,23 +16,22 @@ loginForm.addEventListener('submit', async (event) => {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
+      token,
+
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ name, price, imageUrl }),
   };
 
-  // Making the fetch Request
   try {
-    const res = await fetch(`${uri}/auth/login`, options);
+    const res = await fetch(`${uri}/menu`, options);
     const result = await res.json();
     if (res.status !== 200) toast('danger', result.message);
-    if (result.token) {
-      const { token } = result;
-      localStorage.setItem('token', token);
+    if (result.menu) {
       flash({ type: 'success', message: result.message });
-      window.location.href = '/order';
+      window.location.href = '/menu';
     }
-  } catch (e) {
-    toast('danger', e);
+  } catch (error) {
+    toast('danger', error);
   }
 });
 
@@ -43,11 +45,11 @@ window.onload = () => {
     const currentDate = Math.floor((Date.now() / 1000)); // Convert date to seconds
 
     // Check if the token has expired or not
-    if (expires > currentDate) {
-      window.location.href = '/order';
-    } else {
-      // Remove token if expired
-      localStorage.removeItem('token');
+    if (expires < currentDate) {
+      window.location.href = '/login';
     }
+  } else {
+    flash({ type: 'default', message: 'Login Required' });
+    window.location.href = '/login';
   }
 };
